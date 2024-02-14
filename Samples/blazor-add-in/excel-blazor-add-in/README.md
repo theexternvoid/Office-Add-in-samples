@@ -127,10 +127,9 @@ Create a Blazor Webassembly Excel add-in | [Maarten van Stam](https://mvp.micros
 
 ## Version history
 
-Version  | Date             | Comments
----------| ---------------- | ------------------
-1.0      | May 27, 2022     | Initial release
-2.0      | February 1, 2024 | Upgraded to .NET 8
+Version  | Date | Comments
+---------| -----| --------
+1.0  | May 27, 2022 | Initial release
 
 ## Copyright
 
