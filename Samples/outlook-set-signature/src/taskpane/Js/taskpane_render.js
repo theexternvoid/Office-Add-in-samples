@@ -1,12 +1,17 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+// Additional changes made on top of Microsoft's content are (c) theexternvoid user on GitHub.
+// Licensed under the WTFPL.
+
 let _display_name;
 let _job_title;
 let _phone_number;
 let _email_id;
+let _blog_link;
+let _linkedin_link;
+let _follow_reseach_link;
 let _greeting_text;
-let _preferred_pronoun;
 let _message;
 
 Office.initialize = function(reason)
@@ -25,8 +30,10 @@ function on_initialization_complete()
       _email_id = $("input#email_id");
       _job_title = $("input#job_title");
       _phone_number = $("input#phone_number");
+      _blog_link = $("input#blog_link");
+      _linkedin_link = $("input#linkedin_link");
+      _follow_reseach_link = $("input#follow_reseach_link");
       _greeting_text = $("input#greeting_text");
-      _preferred_pronoun = $("input#preferred_pronoun");
       _message = $("p#message");
 
       prepopulate_from_userprofile();
@@ -57,13 +64,10 @@ function load_saved_user_info()
     _email_id.val(user_info.email);
     _job_title.val(user_info.job);
     _phone_number.val(user_info.phone);
+    _blog_link.val(user_info.blog_link);
+    _linkedin_link.val(user_info.linkedin_link);
+    _follow_reseach_link.val(user_info.follow_reseach_link);
     _greeting_text.val(user_info.greeting);
-
-    let pronoun = user_info.pronoun;
-    if (pronoun && pronoun.length >= 3)
-    {
-      _preferred_pronoun.val(pronoun.substring(1, pronoun.length - 1));
-    }
   }
 }
 
@@ -127,13 +131,10 @@ function create_user_info()
     user_info.email = email;
     user_info.job = _job_title.val().trim();
     user_info.phone = _phone_number.val().trim();
+    user_info.blog_link = _blog_link.val().trim();
+    user_info.linkedin_link = _linkedin_link.val().trim();
+    user_info.follow_reseach_link = _follow_reseach_link.val().trim();
     user_info.greeting = _greeting_text.val().trim();
-    user_info.pronoun = _preferred_pronoun.val().trim();
-
-    if (user_info.pronoun !== "")
-    {
-      user_info.pronoun = "(" + user_info.pronoun + ")";
-    }
 
     console.log(user_info);
     localStorage.setItem('user_info', JSON.stringify(user_info));
@@ -147,8 +148,10 @@ function clear_all_fields()
   _email_id.val("");
   _job_title.val("");
   _phone_number.val("");
+  _blog_link.val("");
+  _linkedin_link.val("");
+  _follow_reseach_link.val("");
   _greeting_text.val("");
-  _preferred_pronoun.val("");
 }
 
 function clear_all_localstorage_data()

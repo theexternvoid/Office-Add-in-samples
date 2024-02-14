@@ -1,5 +1,8 @@
 <!-- Copyright (c) Microsoft Corporation.
      Licensed under the MIT License. -->
+<!-- Additional changes made on top of Microsoft's content are (c) theexternvoid user on GitHub.
+     Licensed under the WTFPL. -->
+
      
 <!DOCTYPE html>
 <html>
@@ -25,17 +28,25 @@
 
     <input type="email" id="email_id" placeholder="Email address*" onclick="this.select()" required />
 
-    <input type="text" id="job_title" placeholder="Title" />
+    <input type="text" id="job_title" placeholder="Job title" onclick="this.select()" required />
 
     <input type="text" id="phone_number" placeholder="Phone number" />
 
-    <input type="text" placeholder="Eg: Thank you," id="greeting_text" />
+    <input type="text" id="blog_link" placeholder="Blog link" />
 
-    <input type="text" placeholder="Eg: She, Her" id="preferred_pronoun" />
+    <input type="text" id="linkedin_link" placeholder="LinkedIn link" />
+
+    <input type="text" id="follow_reseach_link" placeholder="Follow research link*" onclick="this.select()" required />
+
+    <input type="text" id="greeting_text" placeholder="E.g.: Thank you," />
+
+    <textarea id="nerdy_quotes" placeholder="Nerdy quotes" wrap="off"></textarea>
+
+    <textarea id="nerdy_quotes" placeholder="Philosophical quotes" wrap="off"></textarea> 
 
     <button id="next_button_t1" class="registerbtn" onclick="create_user_info()">Save</button>
 
-    <button id="reset_all_config_btn" class="registerbtn" onclick="reset_all_configuration()">RESET ALL</button>
+    <button id="reset_all_config_btn" class="registerbtn" onclick="reset_all_configuration()">Reset All</button>
 
     <p id="message"></p>
   </div>

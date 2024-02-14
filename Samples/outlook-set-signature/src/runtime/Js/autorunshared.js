@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+// Additional changes made on top of Microsoft's content are (c) theexternvoid user on GitHub.
+// Licensed under the WTFPL.
+
 // Contains code for event-based activation on Outlook on web, on Windows, and on Mac (new UI preview).
 
 /**
@@ -124,7 +127,7 @@ function display_insight_infobar() {
 }
 
 /**
- * Gets template name (A,B,C) mapped based on the compose type
+ * Gets template name (A,B) mapped based on the compose type
  * @param {*} compose_type The compose type (reply, forward, newMail)
  * @returns Name of the template to use for the compose type
  */
@@ -136,14 +139,12 @@ function get_template_name(compose_type) {
 
 /**
  * Gets HTML signature in requested template format for given user
- * @param {\} template_name Which template format to use (A,B,C)
+ * @param {\} template_name Which template format to use (A,B)
  * @param {*} user_info Information details about the user
  * @returns HTML signature in requested template format
  */
 function get_signature_info(template_name, user_info) {
-  if (template_name === "templateB") return get_template_B_info(user_info);
-  if (template_name === "templateC") return get_template_C_info(user_info);
-  return get_template_A_info(user_info);
+  return (template_name === "templateA") ? get_template_A_info(user_info) : get_template_B_info(user_info);
 }
 
 /**
@@ -163,72 +164,25 @@ function get_command_id() {
  * @param {*} user_info Information details about the user
  * @returns Object containing:
  *  "signature": The signature HTML of template A,
-    "logoBase64": The base64 encoded logo image,
-    "logoFileName": The filename of the logo image
+    "logoBase64": null since there is no image,
+    "logoFileName": null since there is no image
  */
 function get_template_A_info(user_info) {
-  const logoFileName = "sample-logo.png";
   let str = "";
-  if (is_valid_data(user_info.greeting)) {
-    str += user_info.greeting + "<br/>";
-  }
-
-  str += "<table>";
-  str += "<tr>";
-  // Embed the logo using <img src='cid:...
-  str +=
-    "<td style='border-right: 1px solid #000000; padding-right: 5px;'><img src='cid:" +
-    logoFileName +
-    "' alt='MS Logo' width='24' height='24' /></td>";
-  str += "<td style='padding-left: 5px;'>";
-  str += "<strong>" + user_info.name + "</strong>";
-  str += is_valid_data(user_info.pronoun) ? "&nbsp;" + user_info.pronoun : "";
-  str += "<br/>";
-  str += is_valid_data(user_info.job) ? user_info.job + "<br/>" : "";
-  str += user_info.email + "<br/>";
-  str += is_valid_data(user_info.phone) ? user_info.phone + "<br/>" : "";
-  str += "</td>";
-  str += "</tr>";
-  str += "</table>";
-
-  // return object with signature HTML, logo image base64 string, and filename to reference it with.
-  return {
-    signature: str,
-    logoBase64:
-      "iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEeSURBVFhHzdhBEoIwDIVh4EoeQJd6YrceQM+kvo5hQNokLymO/4aF0/ajlBl1fL4bEp0uj3K9XQ/lGi0MEcB3UdD0uVK1EEj7TIuGeBaKYCgIswCLcUMid8mMcUEiCMk71oRYE+Etsd4UD0aFeBBSFtOEMAgpg6lCIggpitlAMggpgllBeiAkFjNDeiIkBlMgeyAkL6Z6WJdlEJJnjvF4vje/BvRALNN23tyRXzVpd22dHSZtLhjMHemB8cxRINZZyGCssbL2vCN7YLwItHo0PTEMAm3OSA8Mi0DVw5rBRBCoCkERTBSBmhDEYDII5PqlZy1iZSGQuiOSZ6JW3rEuCIpgmDFuCGImZuEUBHkWiOweDUHaQhEE+pM/aobhBZaOpYLJeeeoAAAAAElFTkSuQmCC",
-    logoFileName: logoFileName,
-  };
-}
-
-/**
- * Gets HTML string for template B
- * References the signature logo image from the HTML
- * @param {*} user_info Information details about the user
- * @returns Object containing:
- *  "signature": The signature HTML of template B,
-    "logoBase64": null since this template references the image and does not embed it ,
-    "logoFileName": null since this template references the image and does not embed it
- */
-function get_template_B_info(user_info) {
-  let str = "";
-  if (is_valid_data(user_info.greeting)) {
-    str += user_info.greeting + "<br/>";
-  }
-
-  str += "<table>";
-  str += "<tr>";
-  // Reference the logo using a URI to the web server <img src='https://...
-  str +=
-    "<td style='border-right: 1px solid #000000; padding-right: 5px;'><img src='https://officedev.github.io/Office-Add-in-samples/Samples/outlook-set-signature/assets/sample-logo.png' alt='Logo' /></td>";
-  str += "<td style='padding-left: 5px;'>";
-  str += "<strong>" + user_info.name + "</strong>";
-  str += is_valid_data(user_info.pronoun) ? "&nbsp;" + user_info.pronoun : "";
-  str += "<br/>";
-  str += user_info.email + "<br/>";
-  str += is_valid_data(user_info.phone) ? user_info.phone + "<br/>" : "";
-  str += "</td>";
-  str += "</tr>";
-  str += "</table>";
+  str += "<p class='MsoNormal'><o:p>&nbsp;</o:p></p>";
+  str += "<p class='MsoNormal' style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span style='font-size:8.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'>:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::<o:p></o:p></span></p>";
+  str += "<p class='MsoNormal' style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span style='font-size:9.0pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'>FORRESTER</span></b><span style='font-size:8.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'><br>";
+  str += "</span><span style='font-size:7.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#3BB982;mso-ligatures:none'>BOLD AT WORK</span><span style='font-size:8.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'><o:p></o:p></span></p>";
+  str += "<p class='MsoNormal' style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><b><span style='font-size:8.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'>" + user_info.name + "</span></b><span style='font-size:8.5pt;font-family:&quot;Arial&quot;,sans-serif;color:#333333;mso-ligatures:none'><br>";
+  str += user_info.job + "&nbsp|&nbsp" + (is_valid_data(user_info.phone) ? "Office landline: " + user_info.phone + "&nbsp|&nbsp;" : "") + "<a href='mailto:" + user_info.email + "'><span style='color:blue'>" + user_info.email + "</span></a><br>";
+  str += (is_valid_data(user_info.blog_link) ? "<a href='" + user_info.blog_link + "'><span style='color:blue'>My blog</span></a>&nbsp;|&nbsp;" : "") + (is_valid_data(user_info.linkedin_link) ? "<a href='"+user_info.linkedin_link+"'><span style='color:blue'>LinkedIn profile</span></a>&nbsp;|&nbsp;" : "" ) + "<a href='"+user_info.follow_reseach_link+"'><span style='color:blue'>Follow my latest research</span></a><br />";
+  str += "<br>"
+  str += "<b>Forrester Research, Inc.</b><br>"
+  str += "60 Acorn Park Drive, Cambridge, MA 02140 United States<br>"
+  str += "<a href='http://www.forrester.com/'><span style='color:blue'>Forrester.com</span></a>&nbsp;|&nbsp;<a href='http://blogs.forrester.com/'><span style='color:blue'>Blogs</span></a>&nbsp;|&nbsp;<a href='http://forr.com/what-it-means'><span style='color:blue'>Podcasts</span></a>&nbsp;|&nbsp;<a href='http://twitter.com/forrester'><span style='color:blue'>X</span></a>&nbsp;|&nbsp;<a href='http://linkedin.com/company/forrester-research'><span style='color:blue'>LinkedIn</span></a>&nbsp;|&nbsp;<a href='http://www.youtube.com/user/forresterresearch'><span style='color:blue'>YouTube</span></a>&nbsp;|&nbsp;<a href='https://www.instagram.com/forrester_global/'><span style='color:blue'>Instagram</span></a><o:p></o:p></span></p>"
+  str += "<p class='MsoNormal'><span style='font-size:7.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-ligatures:none'><o:p>&nbsp;</o:p></span></p>"
+  str += "<p class='MsoNormal'><span style='font-size:7.0pt;font-family:&quot;Arial&quot;,sans-serif;mso-ligatures:none'>" + get_random_quote(user_info) + "<o:p></o:p></span></p>"
+  str += "<p class='MsoNormal'><o:p>&nbsp;</o:p></p>"
 
   return {
     signature: str,
@@ -238,14 +192,14 @@ function get_template_B_info(user_info) {
 }
 
 /**
- * Gets HTML string for template C
+ * Gets HTML string for template B
  * @param {*} user_info Information details about the user
  * @returns Object containing:
  *  "signature": The signature HTML of template C,
     "logoBase64": null since there is no image,
     "logoFileName": null since there is no image
  */
-function get_template_C_info(user_info) {
+function get_template_B_info(user_info) {
   let str = "";
   if (is_valid_data(user_info.greeting)) {
     str += user_info.greeting + "<br/>";
@@ -267,6 +221,35 @@ function get_template_C_info(user_info) {
  */
 function is_valid_data(str) {
   return str !== null && str !== undefined && str !== "";
+}
+
+/**
+ * Gets a quote to embed in the signature
+ * @param {*} user_info Information details about the user
+ * @returns The quote text with quotation marks escaped for HTML
+ */
+function get_random_quote(user_info) {
+  return (Math.random() < .5 ? get_random_nerdy_quote() : get_random_philosophical_quote()).replace('"', '&quot;').replace('\'', '&apos;');
+}
+
+/**
+ * Gets a nerdy quote to embed in the signature
+ * @param {*} user_info Information details about the user
+ * @returns The nerdy quote text without quotation marks escaped for HTML
+ */
+function get_random_nerdy_quote(user_info) {
+  var nerdyQuotes = user_info.nerdy_quotes.split('\n');
+  return nerdyQuotes[Math.floor(Math.random() * philosophicalQuotes.length)];
+}
+
+/**
+ * Gets a philosophical quote to embed in the signature
+ * @param {*} user_info Information details about the user
+ * @returns The philosophical quote text without quotation marks escaped for HTML
+ */
+function get_random_philosophical_quote(user_info) {
+  var philosophicalQuotes = user_info.philosophical_quotes.split('\n');
+  return philosophicalQuotes[Math.floor(Math.random() * philosophicalQuotes.length)];
 }
 
 Office.actions.associate("checkSignature", checkSignature);

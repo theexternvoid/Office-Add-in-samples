@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+// Additional changes made on top of Microsoft's content are (c) theexternvoid user on GitHub.
+// Licensed under the WTFPL.
+
 function save_user_settings_to_roaming_settings()
 {
   Office.context.roamingSettings.saveAsync(function (asyncResult)
@@ -110,14 +113,6 @@ function test_template_B()
 {
 	let str = get_template_B_str(_user_info);
 	console.log("test_template_B - " + str);
-
-	insert_signature(str);
-}
-
-function test_template_C()
-{
-	let str = get_template_C_str(_user_info);
-	console.log("test_template_C - " + str);
 
 	insert_signature(str);
 }

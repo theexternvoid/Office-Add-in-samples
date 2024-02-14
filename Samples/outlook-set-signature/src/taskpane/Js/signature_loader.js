@@ -1,6 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+// Additional changes made on top of Microsoft's content are (c) theexternvoid user on GitHub.
+// Licensed under the WTFPL.
+
 let _user_info;
 
 Office.initialize = function(reason)
@@ -43,7 +46,6 @@ function populate_templates()
 {
   populate_template_A();
   populate_template_B();
-  populate_template_C();
 }
 
 function populate_template_A()
@@ -56,12 +58,6 @@ function populate_template_B()
 {
   let str = get_template_B_str(_user_info);
   $("#box_2").html(str);
-}
-
-function populate_template_C()
-{
-  let str = get_template_C_str(_user_info);
-  $("#box_3").html(str);
 }
 
 function show_signature_settings()

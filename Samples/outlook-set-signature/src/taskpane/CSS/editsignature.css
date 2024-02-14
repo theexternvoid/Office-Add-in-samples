@@ -17,6 +17,23 @@ input {
   margin-bottom: 10px;
   text-indent: 5px;
   font-size: 15px;
+  font-family: Arial, sans-serif;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #424242;
+  border-radius: 2px;
+  opacity: 1;
+}
+
+textarea {
+  height: 90px;
+  width: 267px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  text-indent: 5px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
   background: #ffffff 0% 0% no-repeat padding-box;
   border: 1px solid #424242;
   border-radius: 2px;
@@ -26,14 +43,17 @@ input {
 ::placeholder {
   color: #424242;
   opacity: 1;
+  font-family: Arial, sans-serif;
 }
 
 :-ms-input-placeholder {
   color: #424242;
+  font-family: Arial, sans-serif;
 }
 
 ::-ms-input-placeholder {
   color: #424242;
+  font-family: Arial, sans-serif;
 }
 
 h2 {
