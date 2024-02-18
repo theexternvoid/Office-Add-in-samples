@@ -74,8 +74,8 @@ function get_template_B_signature(user_info, quote)
 }
 
 function get_random_quote(user_info) {
-  let group_1_quote = get_random_group_1_quote();
-  let group_2_quote = get_random_group_2_quote();
+  let group_1_quote = get_random_group_1_quote(user_info);
+  let group_2_quote = get_random_group_2_quote(user_info);
   
   return (Math.random() < .5 && is_valid_data(group_1_quote) ? group_1_quote : is_valid_data(group_2_quote) ? group_2_quote : '').replace('"', '&quot;').replace('\'', '&apos;');
 }
